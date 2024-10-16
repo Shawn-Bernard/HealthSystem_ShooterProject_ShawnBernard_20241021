@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Player : Actor {
     public static Player instance;
-    
+    int lastCheckedShield;
     int lastCheckedHealth;
     int lastCheckedXp;
     int lastCheckedLevel; 
@@ -20,9 +20,10 @@ public class Player : Actor {
 
     public override void Update() {
         base.Update();
-        if (lastCheckedHealth != healthSystem.health || lastCheckedLevel != healthSystem.level || lastCheckedXp != healthSystem.xp)
+        if (lastCheckedHealth != healthSystem.health || lastCheckedShield != healthSystem.shield || lastCheckedLevel != healthSystem.level || lastCheckedXp != healthSystem.xp)
         {
             HealthUI.instance.textmeshpro.text = healthSystem.ShowHUD();
+            lastCheckedShield = healthSystem.shield;
             lastCheckedHealth = healthSystem.health;
             lastCheckedLevel = healthSystem.level;
             lastCheckedXp = healthSystem.xp;
