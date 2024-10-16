@@ -58,7 +58,7 @@ public class HealthSystem
     public void RegenerateShield(int hp)
     {
         
-            shield =+ hp;
+            shield += hp;
         
         // Implement shield regeneration logic
     }
