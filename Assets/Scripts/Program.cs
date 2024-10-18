@@ -10,7 +10,7 @@ public class HealthSystem
 
     // Optional XP system variables
     public int xp;
-    public int level;
+    public int level = 1;
 
     public HealthSystem()
     {
@@ -88,6 +88,15 @@ public class HealthSystem
         {
             xp %= 100; // exp loops around after reaching 100 xp
             level++; // adding one level each time the if statement is played
+            lives++; // adding lives each level up
+        }
+        if (level > 99)
+        {
+            level--; // take away level by one if we go over 100
+        }
+        if (lives > 100)
+        {
+            lives--;// take away lives by one if we go over 100
         }
         
         // Implement XP increase and level-up logic
