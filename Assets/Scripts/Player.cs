@@ -25,7 +25,6 @@ public class Player : Actor {
         else
         {
             Player.instance.healthSystem.Revive(); // Get the revive method if we have lives
-            
         }
     }
 
