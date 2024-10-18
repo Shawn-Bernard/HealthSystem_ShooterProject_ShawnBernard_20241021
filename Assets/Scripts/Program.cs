@@ -3,7 +3,7 @@ public class HealthSystem
 {
     // Variables
     public int health;
-    public string healthStatus = "Perfect Health";
+    public string healthStatus;
     public string healthText;
     public int shield;
     public int lives = 3;
@@ -22,22 +22,54 @@ public class HealthSystem
     {
         // Implement HUD display
         //healthStatus = $"Health: {health} Shield: {shield} lives: {lives}";
-        healthStatus = $"Health: {health}: {healthText} Shields: {shield} Lives: {lives}";
 
-        
-        if (health >= 100)
+        if (shield == 100)
         {
-            healthText = "Perfect Health";
+            healthStatus = "Full Shield";
         }
-        else if (health <= 90)
+        else if (shield >= 80)
         {
-            healthText = "Healthy";
+            healthStatus = "Strong Shield";
+        }
+        else if (shield >= 60)
+        {
+            healthStatus = "Damaged Shield";
+        }
+        else if (shield >= 40)
+        {
+            healthStatus = "Weak Shield";
+        }
+        else if (shield >= 20)
+        {
+            healthStatus = "Critical Shield";
+        }
+
+        if (health == 100 && shield == 0)
+        {
+            healthStatus = "Perfect Health";
+        }
+        else if (health >= 80 && shield == 0)
+        {
+            healthStatus = "Healthy";
+        }
+        else if (health >= 60 && shield == 0)
+        {
+            healthStatus = "Hurt";
+        }
+        else if (health >= 40 && shield == 0)
+        {
+            healthStatus = "Badly Hurt";
+        }
+        else if (health >= 20 && shield == 0)
+        {
+            healthStatus = "Imminent Danger";
         }
 
 
-        return healthStatus;
+        return $"[Health: {health}]  [Shields: {shield}]  [Lives: {lives}]  [{healthStatus}]";
     }
-    
+
+
 
     public void TakeDamage(int damage)
     {
@@ -82,8 +114,12 @@ public class HealthSystem
 
     public void Revive()
     {
-        ResetGame();
-        lives--;
+        if (health == 0 && lives != 0)
+        {
+            ResetGame();
+            
+                lives--;
+        }
         // Implement revive logic
     }
 
@@ -92,6 +128,7 @@ public class HealthSystem
         // Reset all variables to default values
         health = 100;
         shield = 100;
+        
     }
 
     // Optional XP system methods

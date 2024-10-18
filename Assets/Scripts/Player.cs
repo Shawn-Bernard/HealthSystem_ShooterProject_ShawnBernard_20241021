@@ -8,6 +8,7 @@ public class Player : Actor {
     int lastCheckedXp;
     int lastCheckedLevel;
     
+    
 
     public void Awake() {
         instance = this;
@@ -16,6 +17,7 @@ public class Player : Actor {
     public override void Die()
     {
         base.Die();
+        
         if (healthSystem.lives <= 0)
         {
             gameObject.SetActive(false);
@@ -29,13 +31,14 @@ public class Player : Actor {
 
     public override void Update() {
         base.Update();
-        if (lastCheckedHealth != healthSystem.health || lastCheckedShield != healthSystem.shield || lastCheckedLevel != healthSystem.level || lastCheckedXp != healthSystem.xp)
+        if (lastCheckedHealth != healthSystem.health || lastCheckedShield != healthSystem.shield || lastCheckedLevel != healthSystem.level || lastCheckedXp != healthSystem.xp )
         {
             HealthUI.instance.textmeshpro.text = healthSystem.ShowHUD();
             lastCheckedShield = healthSystem.shield;
             lastCheckedHealth = healthSystem.health;
             lastCheckedLevel = healthSystem.level;
             lastCheckedXp = healthSystem.xp;
+            //lastCheckedHealthText = healthSystem.healthText;
         }
     }
 
