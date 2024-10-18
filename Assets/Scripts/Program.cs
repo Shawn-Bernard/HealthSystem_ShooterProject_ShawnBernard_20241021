@@ -21,8 +21,79 @@ public class HealthSystem
     public string ShowHUD()
     {
         // Implement HUD display
-        //healthStatus = $"Health: {health} Shield: {shield} lives: {lives}";
 
+        ShieldStatus(); // I added these so I didn't have to look at that mess down there
+        HealthStatus();
+
+
+        return $"[Health: {health}]  [Shields: {shield}]  [Lives: {lives}]  [Level: {level}] [{healthStatus}]";
+    }
+
+
+
+    public void TakeDamage(int damage)
+    {
+        if (shield > 0)
+        {
+            shield -= damage; // if shield is greater than 0 cause damage, else damage health instead  
+        }
+        else {health -= damage;}
+
+        // Implement damage logic
+    }
+
+    public void Heal(int hp)
+    {
+        health += hp;
+        if (health > 100)
+        {
+            health -= hp; //if health is greater than 100, take away the heal
+        }
+        
+        
+        // Implement healing logic
+    }
+
+    public void RegenerateShield(int hp)
+    {
+        shield += hp;
+        if (shield > 100)
+        {
+            shield -= hp; //  if shield is greater than 100, take away the heal
+        }
+        
+        
+        // Implement shield regeneration logic
+    }
+
+    public void Revive()
+    {
+        ResetGame();
+        lives--; // takes away lives each time this is called, I called it in Player
+    }
+
+    public void ResetGame()
+    {
+        // Reset all variables to default values
+        health = 100;
+        shield = 100;
+        
+    }
+
+    // Optional XP system methods
+    public void IncreaseXP(int exp)
+    {
+        xp += exp; // Adding 20 to xp
+        if (xp == 100)
+        {
+            xp %= 100; // exp loops around after reaching 100 xp
+            level++; // adding one level each time the if statement is played
+        }
+        
+        // Implement XP increase and level-up logic
+    }
+    public void ShieldStatus()
+    {
         if (shield == 100)
         {
             healthStatus = "Full Shield";
@@ -43,7 +114,9 @@ public class HealthSystem
         {
             healthStatus = "Critical Shield";
         }
-
+    }
+    public void HealthStatus()
+    {
         if (health == 100 && shield == 0)
         {
             healthStatus = "Perfect Health";
@@ -64,76 +137,5 @@ public class HealthSystem
         {
             healthStatus = "Imminent Danger";
         }
-
-
-        return $"[Health: {health}]  [Shields: {shield}]  [Lives: {lives}]  [{healthStatus}]";
-    }
-
-
-
-    public void TakeDamage(int damage)
-    {
-        if (shield > 0)
-        {
-            shield -= damage;
-        }
-        else if (shield < 0)
-        {
-            shield = 0;
-        }
-        else { health -= damage; }
-        // Implement damage logic
-    }
-
-    public void Heal(int hp)
-    {
-        if (health < 100)
-        {
-            health += hp;
-        }
-        if (health > 100)
-        {
-            health = 100;
-        }
-        
-        
-        // Implement healing logic
-    }
-
-    public void RegenerateShield(int hp)
-    {
-        shield += hp;
-        if (shield > 100)
-        {
-            shield = 100;
-        }
-        
-        
-        // Implement shield regeneration logic
-    }
-
-    public void Revive()
-    {
-        if (health == 0 && lives != 0)
-        {
-            ResetGame();
-            
-                lives--;
-        }
-        // Implement revive logic
-    }
-
-    public void ResetGame()
-    {
-        // Reset all variables to default values
-        health = 100;
-        shield = 100;
-        
-    }
-
-    // Optional XP system methods
-    public void IncreaseXP(int exp)
-    {
-        // Implement XP increase and level-up logic
     }
 }

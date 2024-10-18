@@ -24,8 +24,8 @@ public class Player : Actor {
         }
         else
         {
-            Player.instance.healthSystem.Revive();
-            gameObject.SetActive(true);
+            Player.instance.healthSystem.Revive(); // Get the revive method if we have lives
+            
         }
     }
 
@@ -38,7 +38,7 @@ public class Player : Actor {
             lastCheckedHealth = healthSystem.health;
             lastCheckedLevel = healthSystem.level;
             lastCheckedXp = healthSystem.xp;
-            //lastCheckedHealthText = healthSystem.healthText;
+            
         }
     }
 
