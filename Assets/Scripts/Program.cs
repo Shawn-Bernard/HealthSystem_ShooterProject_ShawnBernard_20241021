@@ -3,10 +3,10 @@ public class HealthSystem
 {
     // Variables
     public int health;
-    public string healthStatus;
+    public string healthStatus = "Perfect Health";
     public string healthText;
     public int shield;
-    public int lives;
+    public int lives = 3;
 
     // Optional XP system variables
     public int xp;
@@ -22,11 +22,16 @@ public class HealthSystem
     {
         // Implement HUD display
         //healthStatus = $"Health: {health} Shield: {shield} lives: {lives}";
-        healthStatus = $"Health: {health} - {healthText} Shields: {shield} Lives: {lives}";
+        healthStatus = $"Health: {health}: {healthText} Shields: {shield} Lives: {lives}";
 
+        
         if (health >= 100)
         {
             healthText = "Perfect Health";
+        }
+        else if (health <= 90)
+        {
+            healthText = "Healthy";
         }
 
 
@@ -40,6 +45,10 @@ public class HealthSystem
         {
             shield -= damage;
         }
+        else if (shield < 0)
+        {
+            shield = 0;
+        }
         else { health -= damage; }
         // Implement damage logic
     }
@@ -50,6 +59,10 @@ public class HealthSystem
         {
             health += hp;
         }
+        if (health > 100)
+        {
+            health = 100;
+        }
         
         
         // Implement healing logic
@@ -57,14 +70,20 @@ public class HealthSystem
 
     public void RegenerateShield(int hp)
     {
+        shield += hp;
+        if (shield > 100)
+        {
+            shield = 100;
+        }
         
-            shield += hp;
         
         // Implement shield regeneration logic
     }
 
     public void Revive()
     {
+        ResetGame();
+        lives--;
         // Implement revive logic
     }
 

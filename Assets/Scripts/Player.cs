@@ -6,7 +6,8 @@ public class Player : Actor {
     int lastCheckedShield;
     int lastCheckedHealth;
     int lastCheckedXp;
-    int lastCheckedLevel; 
+    int lastCheckedLevel;
+    
 
     public void Awake() {
         instance = this;
@@ -15,7 +16,15 @@ public class Player : Actor {
     public override void Die()
     {
         base.Die();
-        gameObject.SetActive(false);
+        if (healthSystem.lives <= 0)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            Player.instance.healthSystem.Revive();
+            gameObject.SetActive(true);
+        }
     }
 
     public override void Update() {
