@@ -7,10 +7,12 @@ public class HealthSystem
     public string healthText;
     public int shield;
     public int lives = 3;
+    public int MaxLives = 5;
 
     // Optional XP system variables
     public int xp;
     public int level = 1;
+    public int MaxLevel = 50;
 
     public HealthSystem()
     {
@@ -33,11 +35,19 @@ public class HealthSystem
 
     public void TakeDamage(int damage)
     {
-        if (shield > 0)
+        shield -= damage;
+        if (shield >= 0)
         {
-            shield -= damage; // if shield is greater than 0 cause damage, else damage health instead  
+            shield = 100; // if shield is greater than 0 cause damage, else damage health instead  
         }
-        else {health -= damage;}
+        else if {shield <= 0}
+        {
+            health -= damage;
+        }
+        if(health <= 0)
+        {
+            health = 100;
+        }
 
         // Implement damage logic
     }
@@ -45,11 +55,10 @@ public class HealthSystem
     public void Heal(int hp)
     {
         health += hp;
-        if (health > 100)
+        if (health >= 100)// If health is greater than or equal to 100 do this
         {
-            health -= hp; //if health is greater than 100, take away the heal
+            health = 100;// More than 100 health set health to 100 
         }
-        
         
         // Implement healing logic
     }
@@ -57,12 +66,10 @@ public class HealthSystem
     public void RegenerateShield(int hp)
     {
         shield += hp;
-        if (shield > 100)
+        if (shield >= 100)//If Shield is greater than or equal to 100 do this
         {
-            shield -= hp; //  if shield is greater than 100, take away the heal
+            shield = 100; // More than 100 health set shield to 100 
         }
-        
-        
         // Implement shield regeneration logic
     }
 
@@ -84,19 +91,19 @@ public class HealthSystem
     public void IncreaseXP(int exp)
     {
         xp += exp; // Adding 20 to xp
-        if (xp == 100)
+        if (xp >= 100)
         {
             xp %= 100; // exp loops around after reaching 100 xp
             level++; // adding one level each time the if statement is played
             lives++; // adding lives each level up
         }
-        if (level > 99)
+        if (level >= MaxLevel)
         {
-            level--; // take away level by one if we go over 100
+            level = MaxLevel; // take away level by one if we go over 100
         }
-        if (lives > 100)
+        if (lives >= MaxLives)
         {
-            lives--;// take away lives by one if we go over 100
+            lives = MaxLives;// take away lives by one if we go over 100
         }
         
         // Implement XP increase and level-up logic
